@@ -24,7 +24,9 @@
       <!--Begin Navbar-->
       <div>
         <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand text-dark" href="#"
+            ><strong>Shop Animal</strong></a
+          >
           <button
             class="navbar-toggler d-lg-none"
             type="button"
@@ -36,13 +38,13 @@
           ></button>
           <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" href="#"
-                  >Home <span class="sr-only">(current)</span></a
+              <li class="nav-item">
+                <a class="nav-link" href="#home"
+                  >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#services">Services</a>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -52,12 +54,23 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  >Dropdown</a
+                  >About</a
                 >
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
-                  <a class="dropdown-item" href="#">Action 1</a>
-                  <a class="dropdown-item" href="#">Action 2</a>
+                  <a class="dropdown-item" href="#aboutUs">About Us</a>
+                  <a class="dropdown-item" href="#pricingTable">Bảng Giá</a>
+                  <a class="dropdown-item" href="#comment">Đánh Giá</a>
+                  <a class="dropdown-item" href="#image">Hình Ảnh</a>
                 </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#ourStaff">Our Staff</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#product">Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contactUs">Contact Us</a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -78,7 +91,7 @@
       </div>
       <!--End Navbar-->
       <!--Begin Header-->
-      <div class="container">
+      <div class="container" id="home">
         <div class="row">
           <div class="col-7 mt-5 text-center">
             <div>
@@ -215,7 +228,7 @@
     </section>
     <!--End CardInfo-->
     <!--Begin AboutUs-->
-    <section class="site-section">
+    <section class="site-section" id="aboutUs">
       <div class="container">
         <div class="row">
           <div
@@ -257,7 +270,7 @@
     </section>
     <!--End AboutUs-->
     <!--begin OUR TRAINERS-->
-    <section class="site-section bg-info">
+    <section id="ourStaff" class="site-section bg-info">
       <div class="container">
         <div
           class="row justify-content-center"
@@ -343,8 +356,47 @@
       </div>
     </section>
     <!--end OUR TRAINERS-->
-    <!--begin PRICING TABLE-->
+    <!--begin Product-->
     <section class="site-section">
+      <div class="container">
+        <div class="row justify-content-center" data-aos="fade-up"
+        data-aos-delay=" 50 "
+        data-aos-duration="1500">
+          <div class="col-lg-5 text-center heading-section mb-4" >
+            <h2 class="mb-2 heading">
+              PRODUCTS
+            </h2>
+            <p>mô tả vài dòng về sản phẩm</p>
+          </div>
+        </div>
+        <div class="row max-width-img">
+          <div class="col-lg-4">
+            <div class="text-center">
+              <h4 class="mb-2">Chuồng Pet</h4>
+            <div class="mb-3"><img src="./image/product/chuong.jpg" class="img-fluid" alt="image here"></div>
+            <button type="button" class="btn btn-primary">See More</button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="text-center">
+              <h4 class="mb-2">Thức Ăn Pet</h4>
+            <div class="mb-3"><img src="./image/product/thuc-an-cho-cho-poodle-moshm.jpg" class="img-fluid" alt="image here"></div>
+            <button type="button" class="btn btn-primary">See More</button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="text-center">
+              <h4 class="mb-2">Phụ Kiện Pet</h4>
+            <div class="mb-3"><img src="./image/product/phukien.jpg" class="img-fluid" alt="image here"></div>
+            <button type="button" class="btn btn-primary">See More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--end Product-->
+    <!--begin PRICING TABLE-->
+    <section id="pricingTable" class="site-section">
       <div class="container">
         <div
           class="row justify-content-center"
@@ -450,7 +502,7 @@
     </section>
     <!--end PRICING TABLE-->
     <!--begin HAPPY CUSTOMERS-->
-    <section class="site-section">
+    <section id="comment" class="site-section">
       <div class="container">
         <div
           class="row justify-content-center"
@@ -517,12 +569,11 @@
             </div>
           </div>
         </div>
-        
       </div>
     </section>
     <!--end HAPPY CUSTOMERS-->
     <!--begin PHOTO GALLERY-->
-    <section class="site-section">
+    <section id="image" class="site-section">
       <div class="container">
         <div
           class="row justify-content-center"
@@ -610,7 +661,7 @@
     </section>
     <!--end PHOTO GALLERY-->
     <!--begin OUR SERVICES-->
-    <section class="site-section">
+    <section id="services" class="site-section">
       <div class="container">
         <div
           class="row justify-content-center"
@@ -728,7 +779,7 @@
     </section>
     <!--end OUR SERVICES-->
     <!--begin Contact us-->
-    <section class="site-section" id="contact-section">
+    <section class="site-section" id="contactUs">
       <div class="container">
         <div class="row">
           <div
@@ -814,6 +865,37 @@
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="site-section bg-dark">
+      <div class="container">
+        <div class="row text-white">
+          <div class="col-lg-5">
+            Built by:
+            <h6>Trần Tú Hảo</h6>
+            <h6>Hồ Phước Thường</h6>
+            <h6>Nguyễn Thành Trưởng</h6>
+            <h6>Huỳnh Lê Trọng Nhân</h6>
+            <h6 style="margin-bottom: 2rem;">Nguyễn Nhựt Tân</h6>
+            Contact:
+            <h6>Call: 0373988618 - 0903256022 (hotline)</h6>
+            <h6>Email: nguyentan15102000@gmail.com</h6>
+            <h6>address: 189 Kinh Dương Vương, Phường 12, Quận 6, TP. Hồ Chí Minh</h6>
+          </div>
+          <div class="col-lg-4">
+            Sponsored by: 
+            <h6>AOS animation</h6>
+            <h6>Firebase google</h6>
+            <h6>Colorlib</h6>
+            <h6>Github</h6>
+            <h6>Boostrap 4</h6>
+            
+          </div>
+          <div class="col-lg-3">
+            Moderator: 
+            <h6>Nguyễn Nhựt Tân</h6>
           </div>
         </div>
       </div>
