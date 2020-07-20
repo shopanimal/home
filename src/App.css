@@ -1,0 +1,16 @@
+
+.site-section {
+  padding: 5em 0; 
+}
+.height-table-body {
+  height: 450px;
+}
+.height-table-footer {
+  padding: 0 2rem 0 3rem;
+}
+.max-width-img div img{
+  max-width: 100px;
+}
+body {
+  position: relative;
+}
