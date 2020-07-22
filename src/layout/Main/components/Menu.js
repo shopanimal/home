@@ -87,15 +87,8 @@ const Menu = props => {
                   </button>
                 </form>
                 <div style={{ marginLeft: "10px" }}>
-                  <NavLink to="login">
-                  <a
-                    name
-                    id
-                    className="btn btn-warning"
-                    role="button"
-                  >
-                    Login
-                  </a>
+                  <NavLink to="/login">
+                  <button type="button" class="btn btn-warning">Login</button>
                   </NavLink>
                 </div>
               </div>

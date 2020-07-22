@@ -17,7 +17,7 @@ import AccessoriesOfProduct from './view/AccessoriesOfProduct/AccessoriesOfProdu
 const Routes = props => {
     return (
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/home">
             <Home />
           </Route>
           <Route exact path="/login">

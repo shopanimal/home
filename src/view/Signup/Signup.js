@@ -129,7 +129,7 @@ const Signup = props => {
           <Grid container justify="flex-end">
             <Grid item>
                 <NavLink to="/login">
-              <Link href="#" variant="body2">
+              <Link variant="body2">
                 Already have an account? Sign in
               </Link>
               </NavLink>
