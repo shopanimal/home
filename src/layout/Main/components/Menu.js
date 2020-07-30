@@ -44,7 +44,7 @@ const Menu = props => {
                     </a>
                     <div className="dropdown-menu" aria-labelledby="dropdownId">
                       <a className="dropdown-item" href="#aboutUs">
-                        About Us
+                        Về chúng tôi
                       </a>
                       <a className="dropdown-item" href="#pricingTable">
                         Bảng Giá
@@ -56,11 +56,6 @@ const Menu = props => {
                         Hình Ảnh
                       </a>
                     </div>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#ourStaff">
-                      Our Staff
-                    </a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="#product">

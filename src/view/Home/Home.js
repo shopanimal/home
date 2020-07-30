@@ -18,12 +18,12 @@ const Home = (props) => {
       <Header />
       <Blog />
       <AboutUs />
-      <OurTrainers />
+      {/* <OurTrainers /> */}
       <Product />
       <PricingTable />
+      <OurServices />
       <HappyCustomers />
       <PhotoGallery />
-      <OurServices />
       <ContactUs />
     </Main>
   );

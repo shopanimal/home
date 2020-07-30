@@ -7,15 +7,15 @@ const Header = props => {
             <div className="row">
               <div className="col-7 mt-5 text-center">
                 <div>
-                  <h1>WE CARE FOR YOUR DOG</h1>
+                  <h1>Chào Mừng Đã Đến Cửa Hàng VoliBear </h1>
                 </div>
                 <p className="mb-4">
-                  We always try to provide your dog the best services.
+                  thú cưng khỏe mạnh, xinh xắn là trách nhiệm hàng đầu của chúng tôi
                 </p>
               </div>
               <div className="col-5">
                 <img
-                  src="./image/dogger_img_1.png"
+                  src="https://colorlib.com/preview/theme/dogger/images/dogger_img_1.png"
                   className="img-fluid float-right"
                   alt=""
                 />

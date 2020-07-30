@@ -9,6 +9,9 @@
   padding: 0 2rem 0 3rem;
 }
 .max-width-img div img{
+  max-width: 200px;
+}
+.max-width-img-sv div img{
   max-width: 100px;
 }
 body {

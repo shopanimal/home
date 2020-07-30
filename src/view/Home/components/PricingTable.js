@@ -1,7 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from "react-router-dom";
+import * as firebase from 'firebase';
+import { FirebaseConnect } from '../../../FirebaseConnect';
 
 const PricingTable = props => {
+  const [combo, setCombo] = useState([]);
+  useEffect(() => {
+    const connectData = firebase.database().ref('combo');
+    connectData.on('value', (data) => {
+      console.log(data.val());
+      const arr = [];
+      data.forEach((e) => {
+        arr.push({
+          id: e.val().id,
+          name: e.val().name,
+          price: e.val().price,
+          service: e.val().service,
+        });
+      });
+      setCombo(arr);
+    });
+  }, []);
     return (
         <section id="pricingTable" className="site-section">
           <div className="container">
@@ -12,101 +32,52 @@ const PricingTable = props => {
               data-aos-duration={1500}
             >
               <div className="col-lg-6 text-center heading mb-3">
-                <h2 className="text-black">PRICING TABLE</h2>
+                <h2 className="text-black">Bảng Combo</h2>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  Combo dịch vụ được sinh ra để tạo sự tiện dụng và chăm sóc thú cưng một cách tốt nhất với giá thành hợp lý
                 </p>
               </div>
             </div>
             <div className="row">
-              <div
-                className="col-lg-4 col-12 bg-info p-md-5"
+              {combo.map((value,key)=>{
+                
+                return(
+                  <div
+                className={key%2==0?"col-lg-4 col-12 bg-info p-md-5":"col-lg-4 col-12 bg-dark p-md-5"}
                 data-aos="zoom-in-up"
                 data-aos-delay={50}
                 data-aos-duration={1500}
               >
-                <div className="height-table-body">
-                  <h3 className="text-center">Basic</h3>
+                <div className="height-table-body text-white">
+                <h3 className="text-center">{value.name}</h3>
                   <div className="text-center mb-3">
-                    <span>47$</span>
+                <span>{value.price}</span>
                     <span>/month</span>
                   </div>
                   <ul className="list">
-                    <li>Officia quaerat eaque neque</li>
-                    <li>Possimus aut consequuntur incidunt</li>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Consectetur adipisicing elit</li>
-                    <li>Dolorum esse odio quas architecto sint</li>
+                    {value.service.map((index, key)=>{
+                      return(
+                      <li>{index}</li>
+                      )
+                    })}
                   </ul>
                 </div>
                 <div className="height-table-footer">
+                <NavLink to={"/confirm/" + value.id} >
                   <button
                     type="button"
                     className="btn btn-primary justify-content-center"
                   >
-                    Buy It
+                    Mua
                   </button>
+                </NavLink>
                 </div>
               </div>
-              <div
-                className="col-lg-4 col-12 bg-dark p-md-5 text-white"
-                data-aos="zoom-in-up"
-                data-aos-delay={250}
-                data-aos-duration={1500}
-              >
-                <div className="height-table-body">
-                  <h3 className="text-center">Basic</h3>
-                  <div className="text-center mb-3">
-                    <span>47$</span>
-                    <span>/month</span>
-                  </div>
-                  <ul className="list">
-                    <li>Officia quaerat eaque neque</li>
-                    <li>Possimus aut consequuntur incidunt</li>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Consectetur adipisicing elit</li>
-                    <li>Dolorum esse odio quas architecto sint</li>
-                  </ul>
-                </div>
-                <div className="height-table-footer">
-                  <button
-                    type="button"
-                    className="btn btn-primary justify-content-center"
-                  >
-                    Buy It
-                  </button>
-                </div>
-              </div>
-              <div
-                className="col-lg-4 col-12 bg-info p-md-5"
-                data-aos="zoom-in-up"
-                data-aos-delay={450}
-                data-aos-duration={1500}
-              >
-                <div className="height-table-body">
-                  <h3 className="text-center">Basic</h3>
-                  <div className="text-center mb-3">
-                    <span>47$</span>
-                    <span>/month</span>
-                  </div>
-                  <ul className="list">
-                    <li>Officia quaerat eaque neque</li>
-                    <li>Possimus aut consequuntur incidunt</li>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Consectetur adipisicing elit</li>
-                    <li>Dolorum esse odio quas architecto sint</li>
-                  </ul>
-                </div>
-                <div className="height-table-footer">
-                  <button
-                    type="button"
-                    className="btn btn-primary justify-content-center"
-                  >
-                    Buy It
-                  </button>
-                </div>
-              </div>
+                )
+              })}
+              
+              
+              
             </div>
           </div>
         </section>

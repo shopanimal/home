@@ -12,20 +12,17 @@ const AboutUs = props => {
                 data-aos-delay={50}
                 data-aos-duration={1500}
               >
-                <h2 className="text-black mb-3">About Us</h2>
+                <h2 className="text-black mb-3">Về Chúng Tôi</h2>
                 <p className="mb-3">
-                  Separated they live in Bookmarksgrove right at the coast of
-                  the Semantics, a large language ocean.
+                  Cửa hàng chúng tôi đã có kinh nghiệm làm việc hơn 4 năm và cho ra những dịch vụ chất lượng bật nhất nhưng vẫn giữ giá thành hợp lý
                 </p>
                 <p className="muted mb-3">
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia. It is a paradisematic country,
-                  in which roasted parts of sentences fly into your mouth.
+                  Đội ngũ nhân viên chuyên nghiệp được đào tạo qua nhiều cấp bật
                 </p>
                 <ul className="list-unstyled">
-                  <li>A small river named Duden flows</li>
-                  <li>It is a paradisematic country</li>
-                  <li>Roasted parts of sentences fly</li>
+                  <li>Cửa hàng Volibear được cấp phép hoạt động ngày 15/10/2016</li>
+                  <li>Được cấp chứng chỉ về dịch vụ thú cưng đạt chuẩn chất lượng cao</li>
+                  <li>Với hơn 3 triệu khách hàng</li>
                 </ul>
               </div>
               <div
@@ -35,7 +32,7 @@ const AboutUs = props => {
                 data-aos-duration={1500}
               >
                 <img
-                  src="./image/dogger_img_big_1.jpg"
+                  src="https://colorlib.com/preview/theme/dogger/images/dogger_img_big_1.jpg"
                   className="img-fluid"
                   alt="acb"
                 />

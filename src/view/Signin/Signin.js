@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,10 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
+import fakeAuth from '../../components/FakeAuth/FakeAuth';
+import * as firebase from 'firebase';
+import { FirebaseConnect } from '../../FirebaseConnect';
 
 function Copyright() {
   return (
@@ -60,7 +63,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signin = (props) => {
-    const classes = useStyles();
+  const classes = useStyles();
+  let history = useHistory();
+  let location = useLocation();
+  const [username, setUsername] = useState();
+  const [pass, setPass] = useState();
+  const [data, setdata] = useState({});
+  useEffect(() => {
+    const connectData = firebase.database().ref("account/moderator");
+    connectData.on("value", (data) => {
+      setdata(data.val());
+    });
+  }, []);
+  let { from } = location.state || { from: { pathname: '/order'  } };
+  let login = () => {
+    fakeAuth.authenticate(() => {
+      history.replace(from);
+    });
+  };
+    
+  
+
+    const validate = () => {
+      if (username == data.name && pass == data.pass) {
+        login();
+      } else {
+        alert('đăng nhập thất bại');
+      }
+    };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -84,6 +115,9 @@ const Signin = (props) => {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
             />
             <TextField
               variant="outlined"
@@ -95,17 +129,23 @@ const Signin = (props) => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => {
+                setPass(e.target.value);
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={() => {
+                validate();
+              }}
             >
               Sign In
             </Button>
