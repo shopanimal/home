@@ -1,7 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import * as firebase from 'firebase';
+import { FirebaseConnect } from '../../../FirebaseConnect';
+import { NavLink } from "react-router-dom";
+
 
 const OurServices = props => {
+  const [service, setService] = useState([]);
+  useEffect(() => {
+    const connectData = firebase.database().ref('service');
+    connectData.on('value', (data) => {
+      console.log(data.val());
+      const arr = [];
+      data.forEach((e) => {
+        arr.push({
+          id: e.val().id,
+          title: e.val().title,
+          image: e.val().image,
+          text: e.val().text,
+          price: e.val().price,
+        });
+      });
+      setService(arr);
+    });
+  }, []);
+
     return (
         <section id="services" className="site-section">
           <div className="container">
@@ -12,98 +35,45 @@ const OurServices = props => {
               data-aos-duration={1500}
             >
               <div className="col-lg-7 mb-5 text-center heading-section">
-                <h2>OUR SERVICES</h2>
+                <h2>Dịch Vụ</h2>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  Đây là những dịch vụ được cửa hàng chọn lọc và đầu tư một cách hợp lý với giá thành nhưng vẫn đảm bảo chất lượng 
                 </p>
               </div>
             </div>
             <div
-              className="row mb-4 max-width-img"
+              className="row row-cols-3 mb-4 max-width-img-sv"
               data-aos="zoom-out-down"
               data-aos-delay={50}
               data-aos-duration={1000}
             >
-              <div className="col-lg-4 mb-3">
+              {service.map((value,key)=>{
+                return(
+                  <div className="col-lg-4 mb-5" key = {key}>
                 <img
-                  src="./image/service/dogger_checkup.svg"
-                  className="img-fluid mb-2"
+                  src={value.image}
+                  className="img-fluid mb-1"
                   alt=""
                 />
-                <h4 className="mb-2">Dog Checkup</h4>
+                <h4 >{value.title}</h4>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  {value.text}
                 </p>
+                <h3>{value.price}</h3>
+                <NavLink to={"/confirm/" + value.id}>
+                  <button
+                    type="button"
+                    className="btn btn-primary justify-content-center"
+                  >
+                    Mua
+                  </button>
+                </NavLink>
               </div>
-              <div className="col-lg-4 mb-3">
-                <img
-                  src="./image/service/dogger_dermatology.svg"
-                  className="img-fluid mb-2"
-                  alt=""
-                />
-                <h4 className="mb-2">Dog Dermatology</h4>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-              <div className="col-lg-4 mb-3">
-                <img
-                  src="./image/service/dogger_bones.svg"
-                  className="img-fluid mb-2"
-                  alt=""
-                />
-                <h4 className="mb-2">For Strong Teeth</h4>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-            </div>
-            <div
-              className="row mb-4 max-width-img"
-              data-aos="zoom-out-down"
-              data-aos-delay={50}
-              data-aos-duration={1000}
-            >
-              <div className="col-lg-4 mb-3">
-                <img
-                  src="./image/service/dogger_veterinarian.svg"
-                  className="img-fluid mb-2"
-                  alt=""
-                />
-                <h4 className="mb-2">Dog First Aid</h4>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-              <div className="col-lg-4 mb-3">
-                <img
-                  src="./image/service/dogger_dryer.svg"
-                  className="img-fluid mb-2"
-                  alt=""
-                />
-                <h4 className="mb-2">Dog Dryer</h4>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-              <div className="col-lg-4 mb-3">
-                <img
-                  src="./image/service/dogger_veterinary.svg"
-                  className="img-fluid mb-2"
-                  alt=""
-                />
-                <h4 className="mb-2">Expert Veterinarian</h4>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
+                )
+              })}
+              
+              
+
             </div>
           </div>
         </section>
