@@ -22,12 +22,12 @@ export const mainListItems = (
       <ListItemText primary="Orders" />
     </ListItem>
     </NavLink>
-    <NavLink to="/customers">
+    <NavLink to="/addproduct">
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Add products" />
     </ListItem>
     </NavLink>
     <NavLink to="/deposits">
@@ -36,6 +36,22 @@ export const mainListItems = (
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Deposits" />
+    </ListItem>
+    </NavLink>
+    <NavLink to="/contact">
+    <ListItem button>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Contact" />
+    </ListItem>
+    </NavLink>
+    <NavLink to="/fallback">
+    <ListItem button>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Fallback" />
     </ListItem>
     </NavLink>
   </div>

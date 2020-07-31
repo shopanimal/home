@@ -11,6 +11,9 @@ import CageOfProduct from "./view/CageOfProduct/CageOfProduct";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AccessoriesOfProduct from "./view/AccessoriesOfProduct/AccessoriesOfProduct";
 import PageBuy from "./view/PageBuy/PageBuy";
+import AddPage from "./view/AddPage/AddPage";
+import ContactPage from "./view/ContactPage/ContactPage";
+import FallBackPage from "./view/FallBackPage/FallBackPage";
 
 const Routes = (props) => {
   return (
@@ -18,11 +21,6 @@ const Routes = (props) => {
       <Route exact path="/home">
         <Home />
       </Route>
-
-      <PrivateRoute path="/order">
-        <OrderAdmin />
-      </PrivateRoute>
-
       <Route exact path="/login">
         <Signin />
       </Route>
@@ -32,6 +30,18 @@ const Routes = (props) => {
       {/* page admin */}
       <Route exact path="/deposits">
         <DepositsAdmin />
+      </Route>
+      <PrivateRoute path="/order">
+        <OrderAdmin />
+      </PrivateRoute>
+      <Route exact path="/addproduct">
+        <AddPage />
+      </Route>
+      <Route exact path="/contact">
+        <ContactPage />
+      </Route>
+      <Route exact path="/fallback">
+        <FallBackPage />
       </Route>
       {/* page product */}
       <Route exact path="/product/food">

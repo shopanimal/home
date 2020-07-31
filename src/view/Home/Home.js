@@ -11,20 +11,40 @@ import PhotoGallery from "./components/PhotoGallery";
 import OurServices from "./components/OurServices";
 import ContactUs from "./components/ContactUs";
 import Main from "../../layout/Main/Main";
+import ReactDOM from 'react-dom';
+import LazyLoad from 'react-lazyload';
 
 const Home = (props) => {
   return (
     <Main stateFooter = {true}>
+      <LazyLoad height={400} offset={1000} debounce={300} once>
       <Header />
+      </LazyLoad>
+      <LazyLoad height={500} offset={1000} debounce={300} once>
       <Blog />
+      </LazyLoad>
+      <LazyLoad height={400} offset={1000} debounce={300} once>
       <AboutUs />
+      </LazyLoad>
       {/* <OurTrainers /> */}
+      <LazyLoad height={400} offset={1000} debounce={300} once>
       <Product />
+      </LazyLoad>
+      <LazyLoad height={500} offset={1000} debounce={300} once>
       <PricingTable />
+      </LazyLoad>
+      <LazyLoad height={500} offset={1000} debounce={300} once>
       <OurServices />
-      <HappyCustomers />
+      </LazyLoad>
+      <LazyLoad height={300} offset={1000} debounce={300} once>
       <PhotoGallery />
+      </LazyLoad>
+      <LazyLoad height={500} offset={1000} debounce={300} once>
+      <HappyCustomers />
+      </LazyLoad>
+      <LazyLoad height={500} offset={1000} debounce={300} once>
       <ContactUs />
+      </LazyLoad>
     </Main>
   );
 };
