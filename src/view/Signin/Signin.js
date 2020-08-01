@@ -66,16 +66,24 @@ const Signin = (props) => {
   const classes = useStyles();
   let history = useHistory();
   let location = useLocation();
-  const [username, setUsername] = useState();
-  const [pass, setPass] = useState();
-  const [data, setdata] = useState({});
+  const [username, setUsername] = useState("");
+  const [pass, setPass] = useState("");
+  const [data, setData] = useState([]);
+  const [status, setStatus] = useState(false);
   useEffect(() => {
-    const connectData = firebase.database().ref("account/moderator");
+    const connectData = firebase.database().ref("account/admin");
     connectData.on("value", (data) => {
-      setdata(data.val());
+      const arr = [];
+      data.forEach((e) => {
+        arr.push({
+          name: e.val().name,
+          pass: e.val().pass,
+        });
+      });
+      setData(arr);
     });
   }, []);
-  let { from } = location.state || { from: { pathname: '/order'  } };
+  let { from } = location.state || { from: { pathname: '/order' } };
   let login = () => {
     fakeAuth.authenticate(() => {
       history.replace(from);
@@ -84,12 +92,13 @@ const Signin = (props) => {
     
   
 
-    const validate = () => {
-      if (username == data.name && pass == data.pass) {
-        login();
-      } else {
-        alert('đăng nhập thất bại');
-      }
+    const validate = (username, pass) => {
+      data.forEach((value)=>{
+        if (username == value.name && pass == value.pass) {
+          login();
+        } 
+      })
+      setStatus(true);
     };
 
   return (
@@ -144,11 +153,24 @@ const Signin = (props) => {
               color="primary"
               className={classes.submit}
               onClick={() => {
-                validate();
+                validate(username, pass);
               }}
             >
               Sign In
             </Button>
+            {status?(
+              <div className="alert alert-danger" role="alert">
+              <strong>đăng nhập thất bại</strong>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ): null}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

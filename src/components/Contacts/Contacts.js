@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { format } from 'date-fns'
 import PropTypes from "prop-types";
 import * as firebase from "firebase";
 import { FirebaseConnect } from "../../FirebaseConnect";
@@ -63,7 +64,7 @@ const Contacts = (props) => {
                       {value.content}
                     </li>
                     <li class="list-group-item">
-                      <h6>Ngày: {value.date}</h6>
+                      <h6>Ngày: {format(new Date(value.date), 'dd/MM/yyyy')}</h6>
                     </li>
                   </ul>
                 </div>

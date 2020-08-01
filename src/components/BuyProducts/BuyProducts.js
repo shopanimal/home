@@ -50,6 +50,7 @@ const BuyProducts = (props) => {
       product: buy[index],
       date: date.toString()
     });
+    
   }
   return (
     <div className="container">
@@ -229,16 +230,17 @@ const BuyProducts = (props) => {
           <p>vui lòng xác nhận sử dụng dịch vụ tại cửa hàng</p>
           <div className="row">
             <div className="col-lg-5">
+            <NavLink to="/home">
               <button type="button" class="btn btn-primary mr-3" onClick={() => {
                 check();
               }}>
+                
                 Xác nhận
               </button>
-              <NavLink to="/home">
+            </NavLink>
                 <button type="button" class="btn btn-danger">
                   Hủy bỏ
                 </button>
-              </NavLink>
             </div>
             <div className="col-lg-7">
               <h6>

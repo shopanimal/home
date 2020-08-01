@@ -28,15 +28,15 @@ const Routes = (props) => {
         <Signup />
       </Route>
       {/* page admin */}
-      <Route exact path="/deposits">
+      <PrivateRoute exact path="/deposits">
         <DepositsAdmin />
-      </Route>
+      </PrivateRoute>
       <PrivateRoute path="/order">
         <OrderAdmin />
       </PrivateRoute>
-      <Route exact path="/addproduct">
+      <PrivateRoute exact path="/addproduct">
         <AddPage />
-      </Route>
+      </PrivateRoute>
       <Route exact path="/contact">
         <ContactPage />
       </Route>

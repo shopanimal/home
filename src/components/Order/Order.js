@@ -12,6 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Title from "../Title/Title";
+import DateAndTime from "../DateAndTime/DateAndTime";
 
 
 function preventDefault(event) {
@@ -80,7 +81,7 @@ const Order = (props) => {
                 if (value.product.type=="sp") {
                   return(
                     <TableRow key={value.id}>
-                    <TableCell></TableCell>
+                    <TableCell><DateAndTime date = {value.date}/></TableCell>
                     <TableCell>{value.lastname}</TableCell>
                     <TableCell>{value.phone}</TableCell>
                     <TableCell>{value.address}</TableCell>
@@ -125,7 +126,7 @@ const Order = (props) => {
           if (value.product.type=="service") {
             return(
               <TableRow key={value.id}>
-              <TableCell></TableCell>
+              <TableCell><DateAndTime date = {value.date}/></TableCell>
               <TableCell>{value.lastname}</TableCell>
               <TableCell>{value.phone}</TableCell>
               <TableCell>{value.address}</TableCell>
