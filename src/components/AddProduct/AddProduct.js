@@ -34,6 +34,7 @@ const AddProduct = (props) => {
       id: id,
       name: name,
       price: price,
+      image: linkImage,
       type: type,
     });
 

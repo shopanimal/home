@@ -12,8 +12,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import { NavLink } from "react-router-dom";
 export const mainListItems = (
   <div>
-    
-    
     <NavLink to="/order">
     <ListItem button>
       <ListItemIcon>

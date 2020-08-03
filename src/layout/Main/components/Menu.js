@@ -68,19 +68,6 @@ const Menu = props => {
                     </a>
                   </li>
                 </ul>
-                <form className="form-inline my-2 my-lg-0">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Search"
-                  />
-                  <button
-                    className="btn btn-outline-success my-2 my-sm-0"
-                    type="button"
-                  >
-                    Search
-                  </button>
-                </form>
                 <div style={{ marginLeft: "10px" }}>
                   <NavLink to="/login">
                   <button type="button" class="btn btn-warning">Login</button>

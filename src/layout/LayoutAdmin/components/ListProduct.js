@@ -12,6 +12,14 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import { NavLink } from "react-router-dom";
 export const listproducts = (
   <div>
+    <NavLink to="/search">
+    <ListItem button>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Search" />
+    </ListItem>
+    </NavLink>
     <NavLink to="/product/cage">
     <ListItem button>
       <ListItemIcon>

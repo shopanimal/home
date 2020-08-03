@@ -14,6 +14,7 @@ import PageBuy from "./view/PageBuy/PageBuy";
 import AddPage from "./view/AddPage/AddPage";
 import ContactPage from "./view/ContactPage/ContactPage";
 import FallBackPage from "./view/FallBackPage/FallBackPage";
+import SearchPage from "./view/SearchPage/SearchPage";
 
 const Routes = (props) => {
   return (
@@ -26,6 +27,9 @@ const Routes = (props) => {
       </Route>
       <Route exact path="/signup">
         <Signup />
+      </Route>
+      <Route exact path="/search">
+        <SearchPage />
       </Route>
       {/* page admin */}
       <PrivateRoute exact path="/deposits">
