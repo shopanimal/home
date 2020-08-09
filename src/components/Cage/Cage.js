@@ -28,16 +28,17 @@ const Cage = (props) => {
   const [cage, setCage] = useState([]);
 
   useEffect(() => {
-    const connectData = firebase.database().ref('products/cage');
+    const connectData = firebase.database().ref('confirm');
     connectData.on('value', (data) => {
       console.log(data.val());
       const arr = [];
       data.forEach((e) => {
         arr.push({
-          id: e.val().id,
+          id: e.key,
           name: e.val().name,
           image: e.val().image,
           price: e.val().price,
+          category: e.val().category,
         });
       });
       setCage(arr);
@@ -50,21 +51,23 @@ const Cage = (props) => {
         <div className={classes.root}>
           <Grid container spacing={1}>
             {cage.map((value, key)=>{
-              return(
-                <Grid item xs={4}>
-                  <div className="mb-2"><img style={{maxWidth: "250px"}} src={value.image} class="img-fluid " alt=""/></div>
-              <div className="mb-2"><h4>{value.name}</h4></div>
-              <div className="mb-4">{value.price}</div>
-              <NavLink to={"/confirm/" + value.id} >
-                  <button
-                    type="button"
-                    className="btn btn-primary justify-content-center"
-                  >
-                    Mua
-                  </button>
-                </NavLink>
-            </Grid>
-              )
+              if(value.category == "cage"){
+                return(
+                  <Grid item xs={4}>
+                    <div className="mb-2"><img style={{maxWidth: "250px"}} src={value.image} class="img-fluid " alt=""/></div>
+                <div className="mb-2"><h4>{value.name}</h4></div>
+                <div className="mb-4">{value.price}</div>
+                <NavLink to={"/confirm/" + value.id} >
+                    <button
+                      type="button"
+                      className="btn btn-primary justify-content-center mb-3"
+                    >
+                      Mua
+                    </button>
+                  </NavLink>
+              </Grid>
+                )
+              }
             })}
             
 

@@ -20,6 +20,10 @@ const FallBack = (props) => {
       setFallback(arr);
     });
   }, []);
+  const deleteContact = (id)=>{
+    const connectData = firebase.database().ref("fallback");
+    connectData.child(id).remove();
+  }
   return (
     <div className="container">
       <div className="row">
@@ -58,6 +62,7 @@ const FallBack = (props) => {
                       {value.text}
                     </li>
                   </ul>
+                  <button type="button" class="btn btn-danger mt-3" onClick={()=>{deleteContact(value.id)}}>Xóa</button>
                 </div>
               );
             })}

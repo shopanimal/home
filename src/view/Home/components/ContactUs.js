@@ -2,13 +2,20 @@ import React, { useEffect, useState }  from 'react';
 import PropTypes from 'prop-types';
 import * as firebase from "firebase";
 import { FirebaseConnect } from "../../../FirebaseConnect";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const ContactUs = props => {
   const [firthName, setFirthName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [phone, setPhone] = useState("");
+  const [open, setOpen] = useState(false);
 
   const check = ()=>{
     const date = new Date();
@@ -17,11 +24,19 @@ const ContactUs = props => {
       firthname: firthName,
       lastname:lastName,
       email: email,
+      phone: phone,
       title: title,
       content: content,
       date: date.toString()
     });
   }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
     return (
         <section className="site-section" id="contactUs">
           <div className="container">
@@ -84,6 +99,14 @@ const ContactUs = props => {
                   </div>
                   <div className="row form-group">
                     <div className="col-md-12">
+                      <label htmlFor="email">Số Điện Thoại</label>
+                      <input type="email" id="email" className="form-control" onChange={(e) => {
+                        setPhone(e.target.value);
+                      }}/>
+                    </div>
+                  </div>
+                  <div className="row form-group">
+                    <div className="col-md-12">
                       <label htmlFor="subject">Tiêu Đề</label>
                       <input
                         type="subject"
@@ -119,9 +142,15 @@ const ContactUs = props => {
                         defaultValue="Send Message"
                         className="btn btn-dark btn-md text-white"
                         onClick={() => {
-                          check()
+                          check();
+                          setOpen(true);
                         }}
                       />
+                      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          This is a success !
+        </Alert>
+      </Snackbar>
                     </div>
                   </div>
                 </form>

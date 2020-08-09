@@ -20,7 +20,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './components/ListItem';
+import { mainListItems } from './components/ListItem';
 import { listproducts } from './components/ListProduct';
 
 function Copyright() {
@@ -141,18 +141,13 @@ const LayoutAdmin = (props) => {
             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
           > 
             <NavLink to= '/home'>
-            <button type="button" class="btn btn-dark">Home</button>
+            <button type="button" class="btn btn-dark mr-1">Home</button>
             </NavLink>
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard 
+            {productOrAdmin? "PRODUCTS" : "ADMIN"}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -170,7 +165,6 @@ const LayoutAdmin = (props) => {
         <Divider />
         <List>{productOrAdmin? listproducts : mainListItems}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

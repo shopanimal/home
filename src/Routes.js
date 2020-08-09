@@ -15,6 +15,7 @@ import AddPage from "./view/AddPage/AddPage";
 import ContactPage from "./view/ContactPage/ContactPage";
 import FallBackPage from "./view/FallBackPage/FallBackPage";
 import SearchPage from "./view/SearchPage/SearchPage";
+import EditProductPage from "./view/EditProductPage/EditProductPage";
 
 const Routes = (props) => {
   return (
@@ -34,6 +35,9 @@ const Routes = (props) => {
       {/* page admin */}
       <PrivateRoute exact path="/deposits">
         <DepositsAdmin />
+      </PrivateRoute>
+      <PrivateRoute exact path="/editproduct">
+        <EditProductPage />
       </PrivateRoute>
       <PrivateRoute path="/order">
         <OrderAdmin />

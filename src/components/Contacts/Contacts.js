@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { format } from 'date-fns'
+import { format, setISODay } from 'date-fns'
 import PropTypes from "prop-types";
 import * as firebase from "firebase";
 import { FirebaseConnect } from "../../FirebaseConnect";
@@ -16,6 +16,7 @@ const Contacts = (props) => {
           content: e.val().content,
           date: e.val().date,
           email: e.val().email,
+          phone: e.val().phone,
           firthname: e.val().firthname,
           lastname: e.val().lastname,
           title: e.val().title,
@@ -24,6 +25,10 @@ const Contacts = (props) => {
       setContact(arr);
     });
   }, []);
+  const deleteContact = (id)=>{
+    const connectData = firebase.database().ref("contacts");
+    connectData.child(id).remove();
+  }
   return (
     <div className="container">
       <div className="row">
@@ -48,6 +53,7 @@ const Contacts = (props) => {
           <div className="tab-content">
             {contact.map((value) => {
               return (
+                <>
                 <div className="tab-pane" id={value.id} role="tabpanel">
                   <ul class="list-group">
                     <li class="list-group-item">
@@ -55,6 +61,9 @@ const Contacts = (props) => {
                     </li>
                     <li class="list-group-item">
                       <h6>Email: {value.email}</h6>
+                    </li>
+                    <li class="list-group-item">
+                      <h6>Phone: {value.phone}</h6>
                     </li>
                     <li class="list-group-item">
                       <h6>Tiêu đề: {value.title}</h6>
@@ -67,10 +76,14 @@ const Contacts = (props) => {
                       <h6>Ngày: {format(new Date(value.date), 'dd/MM/yyyy')}</h6>
                     </li>
                   </ul>
+                  <button type="button" class="btn btn-danger mt-3" onClick={()=>{deleteContact(value.id)}}>Xóa</button>
                 </div>
+                
+                </>
               );
             })}
           </div>
+          
         </div>
       </div>
     </div>

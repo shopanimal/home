@@ -7,6 +7,13 @@ import { FirebaseConnect } from "../../FirebaseConnect";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
@@ -27,6 +34,7 @@ const AddProduct = (props) => {
   const [price, setPrice] = useState("");
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
+  const [open, setOpen] = useState(false);
 
   const check = () => {
     const connectData = firebase.database().ref("confirm");
@@ -36,15 +44,16 @@ const AddProduct = (props) => {
       price: price,
       image: linkImage,
       type: type,
+      category: category,
     });
+  };
 
-    const connectProduct = firebase.database().ref("products/" + category);
-    connectProduct.push({
-      id: id,
-      name: name,
-      price: price,
-      image: linkImage,
-    });
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -108,11 +117,10 @@ const AddProduct = (props) => {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="exampleRadios"
+                  name="exampleRadios1"
                   id="exampleRadios2"
                   value="service"
-                  defaultChecked
-                  onClick={(e) => {
+                  onChange={(e) => {
                     setType(e.target.value);
                   }}
                 />
@@ -124,10 +132,10 @@ const AddProduct = (props) => {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="exampleRadios"
+                  name="exampleRadios1"
                   id="exampleRadios2"
                   Value="sp"
-                  onClick={(e) => {
+                  onChange={(e) => {
                     setType(e.target.value);
                   }}
                 />
@@ -139,63 +147,72 @@ const AddProduct = (props) => {
           </div>
           <div className="row form-group">
             <div className="col-md-12">
-              <label htmlFor="email">Link Image</label>
+              <label htmlFor="email">Loại sản phẩm</label>
               <div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="inlineCheckbox1"
-                    value="acc"
-                    onClick={(e) => {
-                      setCategory(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="inlineCheckbox1">
-                    Phụ kiện
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="inlineCheckbox2"
-                    value="cage"
-                    onClick={(e) => {
-                      setCategory(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="inlineCheckbox2">
-                    Chuồng
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="inlineCheckbox3"
-                    value="food"
-                    onClick={(e) => {
-                      setCategory(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="inlineCheckbox3">
-                    Thức ăn
-                  </label>
-                </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="exampleRadios"
+                  id="exampleRadios3"
+                  value="acc"
+                  onClick={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                />
+                <label className="form-check-label" htmlFor="exampleRadios2">
+                  Phụ Kiện
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="exampleRadios"
+                  id="exampleRadios3"
+                  value="cage"
+                  onClick={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                />
+                <label className="form-check-label" htmlFor="exampleRadios2">
+                  Chuồng
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="exampleRadios"
+                  id="exampleRadios3"
+                  value="food"
+                  onClick={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                />
+                <label className="form-check-label" htmlFor="exampleRadios2">
+                  Thức ăn
+                </label>
+              </div>
               </div>
             </div>
           </div>
           <div className="row form-group">
             <div className="col-md-12">
               <input
-                type="button"
-                defaultValue="Send Message"
+                type="reset"
+                value="Send Message"
                 className="btn btn-dark btn-md text-white"
                 onClick={() => {
                   check();
+                  setOpen(true);
                 }}
               />
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          This is a success !
+        </Alert>
+      </Snackbar>
             </div>
           </div>
         </form>
