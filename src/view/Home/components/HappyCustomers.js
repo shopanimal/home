@@ -2,12 +2,20 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import * as firebase from 'firebase';
 import { FirebaseConnect } from '../../../FirebaseConnect';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const HappyCustomers = props => {
   const [fallback, setFallback] = useState([]);
   const [linkImage, setLinkImage] = useState([]);
   const [name, setName] = useState([]);
   const [back, setBack] = useState([]);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const connectData = firebase.database().ref('fallback');
     connectData.on('value', (data) => {
@@ -35,6 +43,13 @@ const HappyCustomers = props => {
     });
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
     return (
         <section id="comment" className="site-section">
           <div className="container">
@@ -130,8 +145,14 @@ const HappyCustomers = props => {
                 className="btn btn-dark btn-md text-white"
                 onClick={() => {
                   check();
+                  setOpen(true);
                 }}
               />
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          This is a success !
+        </Alert>
+      </Snackbar>
             </div>
           </div>
                 </form>

@@ -3,11 +3,19 @@ import PropTypes from "prop-types";
 import { NavLink, useParams } from "react-router-dom";
 import * as firebase from "firebase";
 import { FirebaseConnect } from "../../FirebaseConnect";
+import Grid from "@material-ui/core/Grid";
+import DateFnsUtils from "@date-io/date-fns"; // choose your lib
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 
 const BuyProducts = (props) => {
   let { id } = useParams();
   const [buy, setBuy] = useState([]);
   //info
+  const [status, setStatus] = useState(false);
   const [firthName, setFirthName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +24,9 @@ const BuyProducts = (props) => {
   const [quan, setQuan] = useState("");
   const [tp, setTp] = useState("");
   const [phuong, setPhuong] = useState("");
-
+  const [online, setOnline] = useState("Offline");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  
   useEffect(() => {
     const connectData = firebase.database().ref("confirm");
     connectData.on("value", (data) => {
@@ -24,9 +34,10 @@ const BuyProducts = (props) => {
       const arr = [];
       data.forEach((e) => {
         arr.push({
-          id: e.val().id,
+          id: e.key,
           name: e.val().name,
           price: e.val().price,
+          image: e.val().image,
           type: e.val().type,
         });
       });
@@ -34,24 +45,36 @@ const BuyProducts = (props) => {
     });
   }, []);
 
-  const index = Number(id) - 1;
-  const check = ()=>{
-    const date = new Date();
-    const connectData = firebase.database().ref('order');
-    connectData.push({
-      firthname: firthName,
-      lastname:lastName,
-      email: email,
-      phone: phone,
-      address: address,
-      quan: quan,
-      tp: tp,
-      phuong: phuong,
-      product: buy[index],
-      date: date.toString()
-    });
-    
-  }
+  // const index = ;
+  // console.log(index);
+
+  const check = () => {
+    if(status){
+      buy.forEach((e, key) => {
+        if (id == e.id) {
+          const date = new Date();
+          const connectData = firebase.database().ref("order");
+          connectData.push({
+            firthname: firthName,
+            lastname: lastName,
+            email: email,
+            phone: phone,
+            address: address,
+            quan: quan,
+            tp: tp,
+            phuong: phuong,
+            typebuy: online,
+            product: buy[key],
+            date: date.toString(),
+            dateto: selectedDate.toString(),
+          });
+        }
+      });
+    } else {
+      alert("bạn vui lòng 'check me out' để xác nhận mua hàng.");
+    }
+  };
+  
   return (
     <div className="container">
       <div className="text-center">
@@ -65,55 +88,93 @@ const BuyProducts = (props) => {
                 return (
                   <div className="col-lg-5">
                     <h2>Xác nhận dịch vụ</h2>
+                    <h5>Hình ảnh:</h5>
+                    <img
+                      src={value.image}
+                      class="img-fluid rounded"
+                      alt=""
+                      style={{ maxWidth: "70%" }}
+                    />
                     <h5>
                       Tên dịch vụ/ sản phẩm: <p className="h3">{value.name}</p>{" "}
                     </h5>
                     <p className="h5">
-                      thể loại: <h3>{value.type=="sp"?("sản phẩm"):("dịch vụ")}</h3>
+                      thể loại:{" "}
+                      <h3>{value.type == "sp" ? "sản phẩm" : "dịch vụ"}</h3>
                     </p>
                     <p className="h5">
                       Giá: <h3>{value.price}</h3>
                     </p>
-                    {value.type== "sp"?(
-                    <div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="exampleRadios"
-                        id="exampleRadios1"
-                        value="online"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="exampleRadios1"
-                      >
-                        Mua online
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="exampleRadios"
-                        id="exampleRadios2"
-                        defaultValue="offline"
-                        defaultChecked
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="exampleRadios2"
-                      >
-                        Mua offline
-                      </label>
-                    </div>
-                    </div>
-                    ): null}
+                    {value.type == "sp" ? (
+                      <div>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="exampleRadios"
+                            id="exampleRadios1"
+                            value="Online"
+                            onClick={(e)=>{setOnline(e.target.value)}}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="exampleRadios1"
+                          >
+                            Mua online
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="exampleRadios"
+                            id="exampleRadios2"
+                            value="Offline"
+                            onClick={(e)=>{setOnline(e.target.value)}}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="exampleRadios2"
+                          >
+                            Mua offline
+                          </label>
+                        </div>
+                      </div>
+                    ) : null}
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <Grid container justify="space-around">
+                        <KeyboardDatePicker
+                          margin="normal"
+                          id="date-picker-dialog"
+                          label="đặt ngày"
+                          format="MM/dd/yyyy"
+                          value={selectedDate}
+                          onChange={(date) => {
+                            setSelectedDate(date);
+                          }}
+                          KeyboardButtonProps={{
+                            "aria-label": "change date",
+                          }}
+                        />
+                        <KeyboardTimePicker
+                          margin="normal"
+                          id="time-picker"
+                          label="Đặt giờ"
+                          value={selectedDate}
+                          onChange={(date) => {
+                            setSelectedDate(date);
+                          }}
+                          KeyboardButtonProps={{
+                            "aria-label": "change time",
+                          }}
+                        />
+                      </Grid>
+                    </MuiPickersUtilsProvider>
                   </div>
                 );
               }
             })}
-            
+
             <div className="col-lg-7">
               <form>
                 <div className="form-row">
@@ -178,28 +239,30 @@ const BuyProducts = (props) => {
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputCity">Thành Phố</label>
+                    <label htmlFor="inputCity">Thành Phố / Tỉnh</label>
                     <input
                       type="text"
                       className="form-control"
                       id="inputCity"
                       onChange={(e) => {
-                        setQuan(e.target.value);
+                        setTp(e.target.value);
                       }}
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputState">Quận</label>
-                    <select id="inputState" className="form-control" onClick={(e) => {
-                        setTp(e.target.value);
-                      }}>
-                      <option selected>Choose...</option>
-                      <option>...</option>
-                    </select>
+                    <label htmlFor="inputState">Quận / Huyện </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputState"
+                      onChange={(e) => {
+                        setQuan(e.target.value);
+                      }}
+                    />
                   </div>
                   <div className="form-row">
                     <div className="form-group col-md-12">
-                      <label htmlFor="inputZip">Phường</label>
+                      <label htmlFor="inputZip">Phường / Xã</label>
                       <input
                         type="text"
                         className="form-control"
@@ -217,9 +280,10 @@ const BuyProducts = (props) => {
                       className="form-check-input"
                       type="checkbox"
                       id="gridCheck"
+                      onClick={()=>{setStatus(!status)}}
                     />
                     <label className="form-check-label" htmlFor="gridCheck">
-                      Check me out
+                      Check tại đây để xác nhận mua hàng
                     </label>
                   </div>
                 </div>
@@ -230,17 +294,22 @@ const BuyProducts = (props) => {
           <p>vui lòng xác nhận sử dụng dịch vụ tại cửa hàng</p>
           <div className="row">
             <div className="col-lg-5">
-            <NavLink to="/home">
-              <button type="button" class="btn btn-primary mr-3" onClick={() => {
-                check();
-              }}>
-                
-                Xác nhận
-              </button>
-            </NavLink>
+              <NavLink to="/home">
+                <button
+                  type="button"
+                  class="btn btn-primary mr-3"
+                  onClick={() => {
+                    check();
+                  }}
+                >
+                  Xác nhận
+                </button>
+              </NavLink>
+              <NavLink to="/home">
                 <button type="button" class="btn btn-danger">
                   Hủy bỏ
                 </button>
+              </NavLink>
             </div>
             <div className="col-lg-7">
               <h6>

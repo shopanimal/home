@@ -29,16 +29,17 @@ const Accessories = (props) => {
   const [acc, setAcc] = useState([]);
 
   useEffect(() => {
-    const connectData = firebase.database().ref('products/acc');
+    const connectData = firebase.database().ref('confirm');
     connectData.on('value', (data) => {
       console.log(data.val());
       const arr = [];
       data.forEach((e) => {
         arr.push({
-          id: e.val().id,
+          id: e.key,
           name: e.val().name,
           image: e.val().image,
           price: e.val().price,
+          category: e.val().category,
         });
       });
       setAcc(arr);
@@ -48,26 +49,31 @@ const Accessories = (props) => {
     <Grid item xs={12}>
         <Paper className={classes.paper}>
         <div className={classes.root}>
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             {acc.map((value,key)=>{
-              return(
-                <Grid item xs={4}>
-                  <div className="mb-2"><img style={{maxWidth: "250px"}} src={value.image} class="img-fluid " alt=""/></div>
-              <div className="mb-2"><h4>{value.name}</h4></div>
-                  <div className="mb-4">{value.price}</div>
-                  <NavLink to={"/confirm/" + value.id} >
-                  <button
-                    type="button"
-                    className="btn btn-primary justify-content-center"
-                  >
-                    Mua
-                  </button>
-                </NavLink>  
-            </Grid>
-              )
+              if(value.category == "acc"){
+                return(
+                  <Grid item xs={4} style={{marginTop: "10px"}}>
+                    <div style={{minHeight: "410px"}}>
+                      <div style={{minHeight: "370px"}}>
+                      <div className="mb-2"><img style={{maxWidth: "250px"}} src={value.image} class="img-fluid " alt=""/></div>
+                <div className="mb-2"><h4>{value.name}</h4></div>
+                      </div>
+                    <div className="mb-4"><h5 style={{color: "green"}}>{value.price}</h5></div>
+                    </div>
+                    <NavLink to={"/confirm/" + value.id} >
+                    <button
+                      type="button"
+                      className="btn btn-primary justify-content-center mb-3"
+                      
+                    >
+                      Mua
+                    </button>
+                  </NavLink>  
+              </Grid>
+                )
+              }
             })}
-            
-
           </Grid>
         </div>
         </Paper>

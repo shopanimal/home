@@ -28,6 +28,14 @@ export const mainListItems = (
       <ListItemText primary="Add products" />
     </ListItem>
     </NavLink>
+    <NavLink to="/editproduct">
+    <ListItem button>
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Edit products" />
+    </ListItem>
+    </NavLink>
     <NavLink to="/deposits">
     <ListItem button>
       <ListItemIcon>

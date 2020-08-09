@@ -7,7 +7,7 @@ const Menu = props => {
             <nav className="navbar navbar-expand-sm navbar-dark bg-info">
               <NavLink to="/">
               <a className="navbar-brand text-dark" href="#">
-                <strong>Shop Animal</strong>
+                <strong>Shop VoliBear</strong>
               </a>
               </NavLink>
               <button

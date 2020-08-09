@@ -113,6 +113,9 @@ const Signin = (props) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <Typography component="h1" variant="h6">
+            for Admin
+          </Typography>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
@@ -142,10 +145,6 @@ const Signin = (props) => {
                 setPass(e.target.value);
               }}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="button"
               fullWidth
@@ -172,11 +171,6 @@ const Signin = (props) => {
             </div>
             ): null}
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <NavLink to="/signup">
                 <Link variant="body2">

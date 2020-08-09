@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Title from "../Title/Title";
 import DateAndTime from "../DateAndTime/DateAndTime";
+import { format } from 'date-fns'
 
 
 function preventDefault(event) {
@@ -50,13 +51,19 @@ const Order = (props) => {
       quan: e.val().quan,
       tp: e.val().tp,
       phuong: e.val().phuong,
+      typebuy: e.val().typebuy,
       product: e.val().product,
       date: e.val().date,
+      dateto: e.val().dateto,
         });
       });
       setOrder(arr);
     });
   }, []);
+  const deleteContact = (id)=>{
+    const connectData = firebase.database().ref("order");
+    connectData.child(id).remove();
+  }
   return (
     <>
     <Grid item xs={12}>
@@ -65,8 +72,10 @@ const Order = (props) => {
           <Title>Recent Orders Products</Title>
           <Table size="small">
             <TableHead>
-              <TableRow>
+              <TableRow style={{backgroundColor: "gray"}}>
                 <TableCell>Date</TableCell>
+                <TableCell>Date To</TableCell>
+                <TableCell>Type Buy</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Address</TableCell>
@@ -82,6 +91,8 @@ const Order = (props) => {
                   return(
                     <TableRow key={value.id}>
                     <TableCell><DateAndTime date = {value.date}/></TableCell>
+                    <TableCell>{format(new Date(value.dateto), 'dd/MM/yyyy HH:mm')}</TableCell>
+                    <TableCell>{value.typebuy}</TableCell>
                     <TableCell>{value.lastname}</TableCell>
                     <TableCell>{value.phone}</TableCell>
                     <TableCell>{value.address}</TableCell>
@@ -89,6 +100,7 @@ const Order = (props) => {
                     <TableCell>{value.quan}</TableCell>
                     <TableCell>{value.product.name}</TableCell>
                     <TableCell align="right">{value.product.price}</TableCell>
+                    <TableCell><button type="button" class="btn btn-danger" onClick={()=>{deleteContact(value.id)}}>Xóa</button></TableCell>
                   </TableRow>
                   )
                 }
@@ -96,9 +108,6 @@ const Order = (props) => {
             </TableBody>
           </Table>
           <div className={classes.seeMore}>
-            <Link color="primary" href="#" onClick={preventDefault}>
-              See more orders
-            </Link>
           </div>
         </React.Fragment>
       </Paper>
@@ -110,8 +119,9 @@ const Order = (props) => {
     <Title>Recent Orders Services</Title>
     <Table size="small">
       <TableHead>
-        <TableRow>
+        <TableRow style={{backgroundColor: "gray"}}>
           <TableCell>Date</TableCell>
+          <TableCell>Date To</TableCell>
           <TableCell>Name</TableCell>
           <TableCell>Phone</TableCell>
           <TableCell>Address</TableCell>
@@ -127,6 +137,7 @@ const Order = (props) => {
             return(
               <TableRow key={value.id}>
               <TableCell><DateAndTime date = {value.date}/></TableCell>
+              <TableCell>{format(new Date(value.dateto), 'dd/MM/yyyy HH:mm')}</TableCell>
               <TableCell>{value.lastname}</TableCell>
               <TableCell>{value.phone}</TableCell>
               <TableCell>{value.address}</TableCell>
@@ -134,6 +145,7 @@ const Order = (props) => {
               <TableCell>{value.quan}</TableCell>
               <TableCell>{value.product.name}</TableCell>
               <TableCell align="right">{value.product.price}</TableCell>
+              <TableCell><button type="button" class="btn btn-danger" onClick={()=>{deleteContact(value.id)}}>Xóa</button></TableCell>
             </TableRow>
             )
           }
@@ -141,9 +153,6 @@ const Order = (props) => {
       </TableBody>
     </Table>
     <div className={classes.seeMore}>
-      <Link color="primary" href="#" onClick={preventDefault}>
-        See more orders
-      </Link>
     </div>
   </React.Fragment>
   </Paper>
